@@ -1,0 +1,3 @@
+SquareLine : https://static.squareline.io/downloads/SquareLine_Studio_Windows_v1_3_1.zip
+
+code-blocks : https://soft98.ir/software/programming/2758-code-blocks.html
