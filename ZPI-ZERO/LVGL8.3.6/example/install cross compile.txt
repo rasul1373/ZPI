@@ -1,0 +1,11 @@
+wget https://licheepizero.us/arm-linux-gnueabihf/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf.tar.xz
+
+tar xvf gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf.tar.xz
+
+mv gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf /opt/
+
+vim /etc/bash.bashrc
+
+add: PATH="$PATH:/opt/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin"
+
+arm-linux-gnueabihf-gcc -v
