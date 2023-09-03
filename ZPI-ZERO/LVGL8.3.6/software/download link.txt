@@ -1,3 +1,9 @@
 SquareLine : https://static.squareline.io/downloads/SquareLine_Studio_Windows_v1_3_1.zip
 
 code-blocks : https://soft98.ir/software/programming/2758-code-blocks.html
+
+Win32 Disk Imager : http://bia2software.ir/win32-disk-imager/16251/
+
+Advanced IP Scanner : https://soft98.ir/internet/network/1830-advanced-ip-scanner.html
+
+mobaxterm : https://soft98.ir/internet/network/2013-mobaxterm.html
