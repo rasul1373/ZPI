@@ -56,6 +56,31 @@ int recinterupt = 0;
  *   GLOBAL FUNCTIONS
  **********************/
 
+
+int read_gpio_value(int pin) {
+    char path[64];
+    FILE *file;
+    int value;
+
+    snprintf(path, sizeof(path), "/sys/class/gpio/gpio%d/value", pin);
+
+    file = fopen(path, "r");
+    if (file == NULL) {
+        perror("Error opening GPIO value file");
+        return -1;
+    }
+
+    if (fscanf(file, "%d", &value) != 1) {
+        perror("Error reading GPIO value");
+        fclose(file);
+        return -1;
+    }
+
+    fclose(file);
+    return value;
+}
+
+
 int main(void) {
 
 
@@ -73,9 +98,9 @@ int main(void) {
   system("  echo out > /sys/class/gpio/gpio192/direction ");
   system("  echo out > /sys/class/gpio/gpio193/direction ");
   system("  echo out > /sys/class/gpio/gpio194/direction ");
-  system("  echo out > /sys/class/gpio/gpio195/direction ");
-  system("  echo out > /sys/class/gpio/gpio196/direction ");
-  system("  echo out > /sys/class/gpio/gpio197/direction ");
+  system("  echo in > /sys/class/gpio/gpio195/direction ");
+  system("  echo in > /sys/class/gpio/gpio196/direction ");
+  system("  echo in > /sys/class/gpio/gpio197/direction ");
   
   
   
@@ -112,17 +137,39 @@ int main(void) {
 
   aita_InitTimer();
   
+  
+  lv_obj_clear_flag(ui_Switch4, LV_OBJ_FLAG_CLICKABLE);  lv_obj_clear_flag(ui_Switch5, LV_OBJ_FLAG_CLICKABLE);  lv_obj_clear_flag(ui_Switch6, LV_OBJ_FLAG_CLICKABLE);
+  
+  
+  
   while (1) {
 
   
 	if(lv_obj_has_state(ui_Switch1, LV_STATE_CHECKED))   system("    echo 1 > /sys/class/gpio/gpio192/value ");  else  system("    echo 0 > /sys/class/gpio/gpio192/value "); 
 	if(lv_obj_has_state(ui_Switch2, LV_STATE_CHECKED))   system("    echo 1 > /sys/class/gpio/gpio193/value ");  else  system("    echo 0 > /sys/class/gpio/gpio193/value "); 
 	if(lv_obj_has_state(ui_Switch3, LV_STATE_CHECKED))   system("    echo 1 > /sys/class/gpio/gpio194/value ");  else  system("    echo 0 > /sys/class/gpio/gpio194/value "); 
-	if(lv_obj_has_state(ui_Switch4, LV_STATE_CHECKED))   system("    echo 1 > /sys/class/gpio/gpio195/value ");  else  system("    echo 0 > /sys/class/gpio/gpio195/value "); 
-	if(lv_obj_has_state(ui_Switch5, LV_STATE_CHECKED))   system("    echo 1 > /sys/class/gpio/gpio196/value ");  else  system("    echo 0 > /sys/class/gpio/gpio196/value "); 
-	if(lv_obj_has_state(ui_Switch6, LV_STATE_CHECKED))   system("    echo 1 > /sys/class/gpio/gpio197/value ");  else  system("    echo 0 > /sys/class/gpio/gpio197/value "); 
+	
+	
+	  if (read_gpio_value(195) == 1) {
+		lv_obj_add_state(ui_Switch4, LV_STATE_CHECKED);
+	    } else {
+		lv_obj_clear_state(ui_Switch4, LV_STATE_CHECKED);
+	    }
 
 
+	  if (read_gpio_value(196) == 1) {
+		lv_obj_add_state(ui_Switch5, LV_STATE_CHECKED);
+	    } else {
+		lv_obj_clear_state(ui_Switch5, LV_STATE_CHECKED);
+	    }
+
+
+
+	  if (read_gpio_value(197) == 1) {
+		lv_obj_add_state(ui_Switch6, LV_STATE_CHECKED);
+	    } else {
+		lv_obj_clear_state(ui_Switch6, LV_STATE_CHECKED);
+	    }
 
 
 
